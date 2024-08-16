@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbvxiqfimrsnk"]
+[gd_scene load_steps=3 format=3 uid="uid://cbvxiqfimrsnk"]
 
 [ext_resource type="PackedScene" uid="uid://5l60gbcvy0cx" path="res://Game/Entities/Player/player.tscn" id="1_tq8dc"]
+[ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
 
 [node name="Game" type="Node"]
 
@@ -8,5 +9,9 @@
 position = Vector2(576, 324)
 
 [node name="Player" parent="." instance=ExtResource("1_tq8dc")]
+z_index = 1
 position = Vector2(582, 558)
 scale = Vector2(-3.04826, 3.17718)
+
+[node name="Background" parent="." instance=ExtResource("2_h7j2e")]
+position = Vector2(10, 6)
