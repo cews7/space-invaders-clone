@@ -47,7 +47,7 @@ func can_shoot_check(delta) -> bool:
 
 func shoot():
 	var projectile = player_projectile.instantiate()
-	projectile.spawn_position = Vector2(global_position.x, 541)
+	projectile.spawn_position = Vector2(global_position.x, 563)
 	projectile.spawn_rotation = rotation
 	game.add_child.call_deferred(projectile)
 

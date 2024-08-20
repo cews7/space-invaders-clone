@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0f7ur4hd3shl"]
+
+[ext_resource type="Script" path="res://Game/Entities/Enemies/Enemy Squid/enemy_squid.gd" id="1_ytslc"]
+[ext_resource type="Texture2D" uid="uid://ce48442738vwx" path="res://Game/Entities/Enemies/Enemy Squid/squid.png" id="2_yc44r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et2vt"]
+atlas = ExtResource("2_yc44r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ndbg"]
+atlas = ExtResource("2_yc44r")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1vx0g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et2vt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ndbg")
+}],
+"loop": true,
+"name": &"squid wiggle",
+"speed": 1.5
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_excki"]
+size = Vector2(14.5, 18.5)
+
+[node name="Enemy Squid" type="Area2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_ytslc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.5, 2.5)
+scale = Vector2(0.65625, 0.78125)
+sprite_frames = SubResource("SpriteFrames_1vx0g")
+animation = &"squid wiggle"
+autoplay = "squid wiggle"
+frame_progress = 0.592072
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(-0.75, 2.25)
+shape = SubResource("RectangleShape2D_excki")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

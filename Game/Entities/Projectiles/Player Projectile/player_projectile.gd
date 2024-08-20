@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Area2D
 
 @export var SPEED : int = 500
 
@@ -10,9 +10,10 @@ func _ready():
 	global_rotation = spawn_rotation
 
 func _physics_process(delta):
-	velocity = Vector2(0, -SPEED)
-	move_and_slide()
-
+	position.y += -SPEED * delta
 
 func _on_life_span_timeout():
+	queue_free()
+
+func _on_area_entered(area:Area2D):
 	queue_free()
