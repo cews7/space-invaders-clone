@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbvxiqfimrsnk"]
+[gd_scene load_steps=5 format=3 uid="uid://cbvxiqfimrsnk"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_ndhe6"]
 [ext_resource type="PackedScene" uid="uid://5l60gbcvy0cx" path="res://Game/Entities/Player/player.tscn" id="1_tq8dc"]
 [ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
+[ext_resource type="PackedScene" uid="uid://ccunc8e2a7c8c" path="res://Game/Entities/Projectiles/Player Projectile/player_projectile.tscn" id="2_obnxb"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node"]
 script = ExtResource("1_ndhe6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -12,6 +13,11 @@ position = Vector2(385, 415)
 
 [node name="Player" parent="." instance=ExtResource("1_tq8dc")]
 position = Vector2(354, 778)
+
+[node name="Player Projectile" parent="Player" instance=ExtResource("2_obnxb")]
+position = Vector2(0.847916, -10.6)
+rotation = 3.14159
+scale = Vector2(0.328056, -0.314745)
 
 [node name="Background" parent="." instance=ExtResource("2_h7j2e")]
 position = Vector2(10, 6)

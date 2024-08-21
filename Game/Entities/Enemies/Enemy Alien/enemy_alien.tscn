@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4olxiucls3r3"]
+[gd_scene load_steps=8 format=3 uid="uid://c4olxiucls3r3"]
 
 [ext_resource type="Script" path="res://Game/Entities/Enemies/Enemy Alien/enemy_alien.gd" id="1_bdqvo"]
 [ext_resource type="Texture2D" uid="uid://bw7dk3a274hgs" path="res://Game/Entities/Enemies/Enemy Alien/alien.png" id="1_wfke3"]
@@ -28,6 +28,9 @@ animations = [{
 "speed": 1.5
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ikqf"]
+size = Vector2(11.3333, 32.3333)
+
 [node name="EnemyAlien" type="Area2D"]
 z_index = 1
 scale = Vector2(1.5, 1.5)
@@ -35,7 +38,7 @@ collision_layer = 3
 collision_mask = 2
 script = ExtResource("1_bdqvo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ycxxp")
 
@@ -46,6 +49,14 @@ sprite_frames = SubResource("SpriteFrames_xcdyj")
 animation = &"alien wiggle"
 autoplay = "alien wiggle"
 frame_progress = 0.161796
+
+[node name="LOSCheck" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LOSCheck"]
+position = Vector2(0, 13.3333)
+shape = SubResource("RectangleShape2D_6ikqf")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

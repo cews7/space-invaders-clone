@@ -29,12 +29,12 @@ func _physics_process(delta):
 	# Make sure we are within the screen
 	position = position.clamp(Vector2.ZERO, screen_size)
 
-	if can_shoot_check(delta):
+	if is_able_to_shoot(delta):
 		shoot()
 
 	move_and_slide()
 
-func can_shoot_check(delta) -> bool:
+func is_able_to_shoot(delta) -> bool:
 	if Input.is_action_pressed("shoot_laser"):
 		if timer >= .7:
 			can_shoot = true
@@ -47,7 +47,7 @@ func can_shoot_check(delta) -> bool:
 
 func shoot():
 	var projectile = player_projectile.instantiate()
-	projectile.spawn_position = Vector2(global_position.x, 563)
+	projectile.spawn_position = Vector2(position.x, position.y - 5)
 	projectile.spawn_rotation = rotation
-	game.add_child.call_deferred(projectile)
+	game.add_child.call(projectile)
 

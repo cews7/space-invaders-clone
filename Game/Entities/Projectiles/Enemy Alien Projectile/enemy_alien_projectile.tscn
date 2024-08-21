@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0efyem2uqlp8"]
+
+[ext_resource type="Texture2D" uid="uid://c8unvgo1paxh" path="res://Game/Entities/Projectiles/Enemy Alien Projectile/alien_laser.png" id="1_dur85"]
+[ext_resource type="Script" path="res://Game/Entities/Projectiles/Enemy Alien Projectile/enemy_alien_projectile.gd" id="1_u250l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k5cr8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj4q7"]
+atlas = ExtResource("1_dur85")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7knp"]
+atlas = ExtResource("1_dur85")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l4ng"]
+atlas = ExtResource("1_dur85")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hvlx7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vj4q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7knp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l4ng")
+}],
+"loop": true,
+"name": &"alien projectile",
+"speed": 4.0
+}]
+
+[node name="Enemy Alien Projectile" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_u250l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_k5cr8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hvlx7")
+animation = &"alien projectile"
+autoplay = "alien projectile"
+frame = 1
+frame_progress = 0.813854
+
+[node name="Life Span" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Life Span" to="." method="_on_life_span_timeout"]
