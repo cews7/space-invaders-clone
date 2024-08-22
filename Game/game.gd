@@ -16,7 +16,7 @@ var screen_bounds = Vector2(750, 828)
 
 var enemy_types : Array = [EnemySquidScn, EnemyAlienScn, EnemyJellyfishScn]
 var enemy_layout : Array = [
-	[0,0,0,0,0,0,0,0,0,0], # 10 enemy squid
+	# [0,0,0,0,0,0,0,0,0,0], # 10 enemy squid
 	[1,1,1,1,1,1,1,1,1,1], # 10 enemy alien
 	[1,1,1,1,1,1,1,1,1,1], # 10 enemy alien
 	# [2,2,2,2,2,2,2,2,2,2], # 10 enemy jellyfish
@@ -25,6 +25,7 @@ var enemy_layout : Array = [
 func _ready() -> void:
 	var start_spawn_vector = Vector2(start_position_x, start_position_y)
 	var spacing = Vector2(spacing_x, spacing_y)
+
 	for row_index in range(enemy_layout.size()):
 		for col_index in range(enemy_layout[row_index].size()):
 			var enemy_type = enemy_layout[row_index][col_index]
@@ -34,11 +35,13 @@ func _ready() -> void:
 
 			enemy_scene.position = position
 			add_child(enemy_scene)
+			# Assign enemy scene to 'enemies' group
+			enemy_scene.add_to_group("enemies")
 
 func _process(delta) -> void:
 	var should_move_down = false
 
-	for enemy in get_children().filter(func(child): return child is Area2D):
+	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.position += move_direction * move_speed * delta
 		# Check if enemy hits edge of screen 
 		if enemy.position.x <= 50 or enemy.position.x >= screen_bounds.x:
@@ -46,5 +49,5 @@ func _process(delta) -> void:
 		
 	if should_move_down:
 		move_direction.x *= -1 # Reverse horizontal direction
-		for enemy in get_children().filter(func(child): return child is Area2D):
+		for enemy in get_tree().get_nodes_in_group("enemies"):
 			enemy.position.y += move_down_amount

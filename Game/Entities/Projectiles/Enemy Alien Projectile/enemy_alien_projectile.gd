@@ -1,13 +1,13 @@
 extends Area2D
 
-@export var speed : int = 500
+@export var speed : int = 300
 
 var spawn_position : Vector2
 var spawn_rotation : float
 
 func _ready():
-	global_position = spawn_position
-	global_rotation = spawn_rotation
+	position = spawn_position
+	rotation = spawn_rotation
 
 func _physics_process(delta):
 	position.y += speed * delta

@@ -37,6 +37,7 @@ animations = [{
 [node name="Enemy Alien Projectile" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_u250l")
+speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_k5cr8")
@@ -49,7 +50,7 @@ frame = 1
 frame_progress = 0.813854
 
 [node name="Life Span" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 2.5
 autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

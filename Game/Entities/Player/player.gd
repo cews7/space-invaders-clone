@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var player_projectile = load("res://Game/Entities/Projectiles/Player Projectile/player_projectile.tscn")
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
 var screen_size
 var timer : float
 var can_shoot : bool
@@ -49,5 +48,5 @@ func shoot():
 	var projectile = player_projectile.instantiate()
 	projectile.spawn_position = Vector2(position.x, position.y - 5)
 	projectile.spawn_rotation = rotation
-	game.add_child.call(projectile)
+	game.add_child.call_deferred(projectile)
 

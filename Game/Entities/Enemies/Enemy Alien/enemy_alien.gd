@@ -16,7 +16,7 @@ func _physics_process(delta) -> void:
 
 
 func is_able_to_shoot(delta) -> bool:
-	return reload_time_elapsed(delta) and has_line_of_sight()
+	return reload_time_elapsed(delta) and reload_attempt_successful() and has_line_of_sight()
 		
 
 func reload_time_elapsed(delta) -> bool:
@@ -31,21 +31,19 @@ func reload_time_elapsed(delta) -> bool:
 
 func reload_attempt_successful() -> bool:
 	var num = 1
-	var rand_num = randi_range(0, 10)
+	var rand_num = randi_range(0, 17)
 	if num == rand_num:
 		return true
 	return false
 
 func has_line_of_sight() -> bool:
-	# print($LOSCheck.has_overlapping_areas())
-	return not $LOSCheck.has_overlapping_areas()
-
+	return not $LOSCheck.is_colliding()
 
 func shoot() -> void:
 	var projectile = alien_projectile.instantiate()
 	projectile.spawn_position = Vector2(position.x, position.y + 5)
 	projectile.spawn_rotation = rotation
-	game.add_child.call(projectile)
+	game.add_child.call_deferred(projectile)
 
 
 func _on_area_entered(area:Area2D):
