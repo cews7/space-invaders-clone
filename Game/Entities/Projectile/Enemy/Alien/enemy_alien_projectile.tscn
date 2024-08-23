@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c0efyem2uqlp8"]
 
-[ext_resource type="Texture2D" uid="uid://c8unvgo1paxh" path="res://Game/Entities/Projectiles/Enemy Alien Projectile/alien_laser.png" id="1_dur85"]
-[ext_resource type="Script" path="res://Game/Entities/Projectiles/Enemy Alien Projectile/enemy_alien_projectile.gd" id="1_u250l"]
+[ext_resource type="Texture2D" uid="uid://c8unvgo1paxh" path="res://Game/Entities/Projectile/Enemy/Alien/alien_laser.png" id="1_dur85"]
+[ext_resource type="Script" path="res://Game/Entities/Projectile/Enemy/Alien/enemy_alien_projectile.gd" id="1_u250l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k5cr8"]
 
@@ -37,7 +37,6 @@ animations = [{
 [node name="Enemy Alien Projectile" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_u250l")
-speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_k5cr8")

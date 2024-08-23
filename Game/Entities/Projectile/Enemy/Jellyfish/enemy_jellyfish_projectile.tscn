@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjanmvvy5gq00"]
+
+[ext_resource type="Script" path="res://Game/Entities/Projectile/Enemy/Jellyfish/enemy_jellyfish_projectile.gd" id="1_s4qcn"]
+[ext_resource type="Texture2D" uid="uid://cqqna047gi35i" path="res://Game/Entities/Projectile/Enemy/Jellyfish/jellyfish_laser.png" id="1_tqyfn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2iot"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amv4h"]
+atlas = ExtResource("1_tqyfn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jihcv"]
+atlas = ExtResource("1_tqyfn")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmboq"]
+atlas = ExtResource("1_tqyfn")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kilfl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amv4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jihcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmboq")
+}],
+"loop": true,
+"name": &"jellyfish projectile",
+"speed": 4.0
+}]
+
+[node name="Enemy Jellyfish Projectile" type="Area2D"]
+script = ExtResource("1_s4qcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h2iot")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kilfl")
+animation = &"jellyfish projectile"
+autoplay = "jellyfish projectile"
+frame_progress = 0.778992
+
+[node name="Life Span" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Life Span" to="." method="_on_life_span_timeout"]

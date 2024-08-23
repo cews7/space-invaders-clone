@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=3 uid="uid://dfpj80js1fn4l"]
 
-[ext_resource type="Script" path="res://Game/Entities/Enemies/Enemy Jellyfish/enemy_jellyfish.gd" id="1_160td"]
-[ext_resource type="Texture2D" uid="uid://bw3sgpjw1apma" path="res://Game/Entities/Enemies/Enemy Jellyfish/jellyfish.png" id="1_y1mg2"]
+[ext_resource type="Script" path="res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.gd" id="1_hblbs"]
+[ext_resource type="Texture2D" uid="uid://bw3sgpjw1apma" path="res://Game/Entities/Enemy/Jellyfish/jellyfish.png" id="2_hl1no"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i1xfw"]
 size = Vector2(24, 16.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r246d"]
-atlas = ExtResource("1_y1mg2")
+atlas = ExtResource("2_hl1no")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0rle"]
-atlas = ExtResource("1_y1mg2")
+atlas = ExtResource("2_hl1no")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_isggn"]
@@ -33,7 +33,7 @@ z_index = 1
 scale = Vector2(1.5, 1.5)
 collision_layer = 3
 collision_mask = 2
-script = ExtResource("1_160td")
+script = ExtResource("1_hblbs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.75)
@@ -46,5 +46,11 @@ sprite_frames = SubResource("SpriteFrames_isggn")
 animation = &"jellyfish wiggle"
 autoplay = "jellyfish wiggle"
 frame_progress = 0.715471
+
+[node name="LOSCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, 32.6667)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

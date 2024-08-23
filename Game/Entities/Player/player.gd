@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @onready var game = get_tree().get_root().get_node("Game")
-@onready var player_projectile = load("res://Game/Entities/Projectiles/Player Projectile/player_projectile.tscn")
+@onready var player_projectile = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
 
-const SPEED = 300.0
+const SPEED = 150.0
 var screen_size
 var timer : float
 var can_shoot : bool

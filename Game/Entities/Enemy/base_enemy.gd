@@ -1,18 +1,11 @@
 extends Area2D
-
-@onready var game = get_tree().get_root().get_node("Game")
-@onready var alien_projectile = load("res://Game/Entities/Projectiles/Enemy Alien Projectile/enemy_alien_projectile.tscn")
+class_name BaseEnemy
 
 var reload_time : float
 var is_reload_time_complete : bool
 
 func _ready() -> void:
 	reload_time = 0
-
-
-func _physics_process(delta) -> void:
-	if is_able_to_shoot(delta):
-		shoot()
 
 
 func is_able_to_shoot(delta) -> bool:
@@ -38,12 +31,6 @@ func reload_attempt_successful() -> bool:
 
 func has_line_of_sight() -> bool:
 	return not $LOSCheck.is_colliding()
-
-func shoot() -> void:
-	var projectile = alien_projectile.instantiate()
-	projectile.spawn_position = Vector2(position.x, position.y + 5)
-	projectile.spawn_rotation = rotation
-	game.add_child.call_deferred(projectile)
 
 
 func _on_area_entered(area:Area2D):

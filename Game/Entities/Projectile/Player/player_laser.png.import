@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8unvgo1paxh"
-path="res://.godot/imported/alien_laser.png-56cb977e4a5431e20d6ff3da10361c42.ctex"
+uid="uid://b36xhhgs8otkp"
+path="res://.godot/imported/player_laser.png-222e6a755d4862a4c60d5b161186e38c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Entities/Projectiles/Enemy Alien Projectile/alien_laser.png"
-dest_files=["res://.godot/imported/alien_laser.png-56cb977e4a5431e20d6ff3da10361c42.ctex"]
+source_file="res://Game/Entities/Projectile/Player/player_laser.png"
+dest_files=["res://.godot/imported/player_laser.png-222e6a755d4862a4c60d5b161186e38c.ctex"]
 
 [params]
 

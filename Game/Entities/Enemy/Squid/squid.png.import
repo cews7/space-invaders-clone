@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7s6v11a0jaiq"
-path="res://.godot/imported/squid_laser.png-642840f86961aa9135725601fed4d742.ctex"
+uid="uid://ce48442738vwx"
+path="res://.godot/imported/squid.png-762aedc188fc7e190f3657ddc78f1e1c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Entities/Projectiles/Enemy Squid Projectile/squid_laser.png"
-dest_files=["res://.godot/imported/squid_laser.png-642840f86961aa9135725601fed4d742.ctex"]
+source_file="res://Game/Entities/Enemy/Squid/squid.png"
+dest_files=["res://.godot/imported/squid.png-762aedc188fc7e190f3657ddc78f1e1c.ctex"]
 
 [params]
 

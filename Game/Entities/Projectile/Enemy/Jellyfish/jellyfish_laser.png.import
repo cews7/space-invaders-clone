@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw3sgpjw1apma"
-path="res://.godot/imported/jellyfish.png-aab2a4f0caeff2bc0794dc7f347f773b.ctex"
+uid="uid://cqqna047gi35i"
+path="res://.godot/imported/jellyfish_laser.png-3222e5befe83e2caf6b40544d4c260e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Entities/Enemies/Enemy Jellyfish/jellyfish.png"
-dest_files=["res://.godot/imported/jellyfish.png-aab2a4f0caeff2bc0794dc7f347f773b.ctex"]
+source_file="res://Game/Entities/Projectile/Enemy/Jellyfish/jellyfish_laser.png"
+dest_files=["res://.godot/imported/jellyfish_laser.png-3222e5befe83e2caf6b40544d4c260e3.ctex"]
 
 [params]
 

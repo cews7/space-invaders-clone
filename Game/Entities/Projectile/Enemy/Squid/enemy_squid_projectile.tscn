@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6rtqmcqj6vx1"]
+
+[ext_resource type="Script" path="res://Game/Entities/Projectile/Enemy/Squid/Enemy Squid Projectile.gd" id="1_w2jct"]
+[ext_resource type="Texture2D" uid="uid://b7s6v11a0jaiq" path="res://Game/Entities/Projectile/Enemy/Squid/squid_laser.png" id="2_ilfx4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c8mvc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5j741"]
+atlas = ExtResource("2_ilfx4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqw82"]
+atlas = ExtResource("2_ilfx4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_msa4x"]
+atlas = ExtResource("2_ilfx4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x4gcr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5j741")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqw82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_msa4x")
+}],
+"loop": true,
+"name": &"squid projectile",
+"speed": 4.0
+}]
+
+[node name="Enemy Squid Projectile" type="Area2D"]
+script = ExtResource("1_w2jct")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_c8mvc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_x4gcr")
+animation = &"squid projectile"
+autoplay = "squid projectile"
+frame_progress = 0.122662
+
+[node name="Life Span" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true

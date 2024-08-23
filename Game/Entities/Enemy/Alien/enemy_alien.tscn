@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4olxiucls3r3"]
 
-[ext_resource type="Script" path="res://Game/Entities/Enemies/Enemy Alien/enemy_alien.gd" id="1_bdqvo"]
-[ext_resource type="Texture2D" uid="uid://bw7dk3a274hgs" path="res://Game/Entities/Enemies/Enemy Alien/alien.png" id="1_wfke3"]
+[ext_resource type="Script" path="res://Game/Entities/Enemy/Alien/enemy_alien.gd" id="1_68rde"]
+[ext_resource type="Texture2D" uid="uid://bw7dk3a274hgs" path="res://Game/Entities/Enemy/Alien/alien.png" id="2_ijku2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycxxp"]
 size = Vector2(24, 19)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycro0"]
-atlas = ExtResource("1_wfke3")
+atlas = ExtResource("2_ijku2")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tyvl7"]
-atlas = ExtResource("1_wfke3")
+atlas = ExtResource("2_ijku2")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xcdyj"]
@@ -33,7 +33,7 @@ z_index = 1
 scale = Vector2(1.5, 1.5)
 collision_layer = 3
 collision_mask = 2
-script = ExtResource("1_bdqvo")
+script = ExtResource("1_68rde")
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
