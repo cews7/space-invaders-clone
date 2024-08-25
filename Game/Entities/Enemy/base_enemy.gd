@@ -29,6 +29,7 @@ func reload_attempt_successful() -> bool:
 		return true
 	return false
 
+
 func has_line_of_sight() -> bool:
 	return not $LOSCheck.is_colliding()
 

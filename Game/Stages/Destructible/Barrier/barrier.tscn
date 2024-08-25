@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpmvv0uskuw2r"]
+
+[ext_resource type="Texture2D" uid="uid://c4vlio38f5eel" path="res://Game/Stages/Destructible/Barrier/undamaged_barrier.png" id="1_3ywgy"]
+[ext_resource type="Script" path="res://Game/Stages/Destructible/Barrier/barrier.gd" id="1_ucbo3"]
+[ext_resource type="Texture2D" uid="uid://duidosvqnuewx" path="res://Game/Stages/Destructible/Barrier/damaged_barrier.png" id="2_khrjy"]
+[ext_resource type="Script" path="res://Game/Stages/Destructible/Barrier/BarrierArea.gd" id="4_ocxwr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7gjt2"]
+texture = ExtResource("1_3ywgy")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6wpuw"]
+texture = ExtResource("2_khrjy")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_1n13n"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_7gjt2")
+sources/1 = SubResource("TileSetAtlasSource_6wpuw")
+
+[node name="Barrier" type="Node2D"]
+script = ExtResource("1_ucbo3")
+
+[node name="BarrierTile" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_1n13n")
+format = 2
+layer_0/tile_data = PackedInt32Array(-262143, 65536, 0, -65534, 0, 0, -131070, 65536, 0, -131071, 0, 0, -65535, 0, 0, -3, 0, 0, -2, 0, 0, -65538, 65536, 0, -65539, 0, 0, -262144, 0, 0, -196608, 0, 1, -131073, 65536, 1, -196609, 65536, 0, -196610, 0, 0, -196606, 0, 0, -196607, 65536, 1, -131074, 0, 1, -131075, 0, 0)
+
+[node name="BarrierArea" type="Area2D" parent="."]
+script = ExtResource("4_ocxwr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BarrierArea"]
+polygon = PackedVector2Array(-48, -48, -32, -48, -32, -64, 32, -64, 32, -48, 48, -48, 48, 0, 16, 0, 16, -32, -16, -32, -16, 0, -48, 0)
+
+[connection signal="area_entered" from="BarrierArea" to="." method="_on_barrier_hit"]

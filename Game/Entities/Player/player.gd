@@ -4,19 +4,17 @@ extends CharacterBody2D
 @onready var player_projectile = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
 
 const SPEED = 150.0
-var screen_size
+var screen_size: Vector2
 var timer : float
 var can_shoot : bool
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-func _ready():
+func _ready() -> void:
 	timer = 0
 	can_shoot = false
 	screen_size = get_viewport_rect().size
 
-func _physics_process(delta):
+
+func _physics_process(delta) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("player_move_left", "player_move_right")
@@ -32,6 +30,7 @@ func _physics_process(delta):
 		shoot()
 
 	move_and_slide()
+
 
 func is_able_to_shoot(delta) -> bool:
 	if Input.is_action_pressed("shoot_laser"):
