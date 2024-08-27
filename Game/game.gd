@@ -6,9 +6,9 @@ extends Node
 @export var start_position_x: float = 30
 @export var start_position_y: float = 172
 
-const EnemySquidScn = preload("res://Game/Entities/Enemy/Squid/enemy_squid.tscn")
-const EnemyAlienScn = preload("res://Game/Entities/Enemy/Alien/enemy_alien.tscn")
-const EnemyJellyfishScn = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
+const EnemySquidScn: PackedScene = preload("res://Game/Entities/Enemy/Squid/enemy_squid.tscn")
+const EnemyAlienScn: PackedScene = preload("res://Game/Entities/Enemy/Alien/enemy_alien.tscn")
+const EnemyJellyfishScn: PackedScene = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
 
 var move_direction: Vector2 = Vector2(1, 0)
 var move_down_amount: float = 40
@@ -29,10 +29,10 @@ func _ready() -> void:
 
 	for row_index: int in range(enemy_layout.size()):
 		for col_index: int in range(enemy_layout[row_index].size()):
-			var enemy_type = enemy_layout[row_index][col_index]
-			var enemy_scene = enemy_types[enemy_type].instantiate()
+			var enemy_type: int = enemy_layout[row_index][col_index]
+			var enemy_scene: Area2D = enemy_types[enemy_type].instantiate()
 
-			var position = start_spawn_vector + Vector2(col_index * spacing.x, row_index * spacing.y)
+			var position: Vector2 = start_spawn_vector + Vector2(col_index * spacing.x, row_index * spacing.y)
 
 			enemy_scene.position = position
 			add_child(enemy_scene)
@@ -40,7 +40,7 @@ func _ready() -> void:
 			enemy_scene.add_to_group("enemies")
 
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	var should_move_down: bool = false
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):

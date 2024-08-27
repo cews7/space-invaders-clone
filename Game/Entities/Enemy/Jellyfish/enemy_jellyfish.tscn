@@ -1,10 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfpj80js1fn4l"]
+[gd_scene load_steps=13 format=3 uid="uid://dfpj80js1fn4l"]
 
 [ext_resource type="Script" path="res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.gd" id="1_hblbs"]
 [ext_resource type="Texture2D" uid="uid://bw3sgpjw1apma" path="res://Game/Entities/Enemy/Jellyfish/jellyfish.png" id="2_hl1no"]
+[ext_resource type="Texture2D" uid="uid://do3ujlurqm2ly" path="res://Game/Entities/Enemy/death.png" id="2_tqrom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i1xfw"]
 size = Vector2(24, 16.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvkoo"]
+atlas = ExtResource("2_tqrom")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwxb8"]
+atlas = ExtResource("2_tqrom")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r246d"]
 atlas = ExtResource("2_hl1no")
@@ -18,6 +27,17 @@ region = Rect2(32, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_dvkoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwxb8")
+}],
+"loop": true,
+"name": &"death",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_r246d")
 }, {
 "duration": 1.0,
@@ -27,6 +47,94 @@ animations = [{
 "name": &"jellyfish wiggle",
 "speed": 1.5
 }]
+
+[sub_resource type="Animation" id="Animation_27shm"]
+resource_name = "Enemy Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+
+[sub_resource type="Animation" id="Animation_yl4g0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"death"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uswlj"]
+_data = {
+"Enemy Death": SubResource("Animation_27shm"),
+"RESET": SubResource("Animation_yl4g0")
+}
 
 [node name="Enemy Jellyfish" type="Area2D"]
 z_index = 1
@@ -43,14 +151,18 @@ shape = SubResource("RectangleShape2D_i1xfw")
 position = Vector2(0.5, -3.57632e-07)
 scale = Vector2(0.875, 0.75)
 sprite_frames = SubResource("SpriteFrames_isggn")
-animation = &"jellyfish wiggle"
+animation = &"death"
 autoplay = "jellyfish wiggle"
-frame_progress = 0.715471
 
 [node name="LOSCheck" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32.6667)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uswlj")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

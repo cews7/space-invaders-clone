@@ -5,18 +5,18 @@ extends Area2D
 var spawn_position : Vector2
 var spawn_rotation : float
 
-func _ready():
+func _ready() -> void:
 	position = spawn_position
 	rotation = spawn_rotation
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	position.y += -speed * delta
 
 
-func _on_life_span_timeout():
+func _on_life_span_timeout() -> void:
 	queue_free()
 
 
-func _on_area_entered(area:Area2D):
+func _on_area_entered(_area: Area2D) -> void:
 	queue_free()

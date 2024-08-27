@@ -8,11 +8,11 @@ func _ready() -> void:
 	reload_time = 0
 
 
-func is_able_to_shoot(delta) -> bool:
+func is_able_to_shoot(delta: float) -> bool:
 	return reload_time_elapsed(delta) and reload_attempt_successful() and has_line_of_sight()
 		
 
-func reload_time_elapsed(delta) -> bool:
+func reload_time_elapsed(delta: float) -> bool:
 	if reload_time >= 1:
 		is_reload_time_complete = true
 		reload_time = 0
@@ -23,8 +23,8 @@ func reload_time_elapsed(delta) -> bool:
 
 
 func reload_attempt_successful() -> bool:
-	var num = 1
-	var rand_num = randi_range(0, 17)
+	var num: int = 1
+	var rand_num: int = randi_range(0, 17)
 	if num == rand_num:
 		return true
 	return false
@@ -33,6 +33,3 @@ func reload_attempt_successful() -> bool:
 func has_line_of_sight() -> bool:
 	return not $LOSCheck.is_colliding()
 
-
-func _on_area_entered(area:Area2D):
-	queue_free()

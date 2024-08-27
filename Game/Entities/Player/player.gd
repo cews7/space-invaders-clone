@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@onready var game = get_tree().get_root().get_node("Game")
-@onready var player_projectile = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
+@onready var game: Node2D = get_tree().get_root().get_node("Game")
+@onready var player_projectile: PackedScene = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
 
-const SPEED = 150.0
+const SPEED: float = 150.0
 var screen_size: Vector2
 var timer : float
 var can_shoot : bool
@@ -14,10 +14,10 @@ func _ready() -> void:
 	screen_size = get_viewport_rect().size
 
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("player_move_left", "player_move_right")
+	var direction: float = Input.get_axis("player_move_left", "player_move_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -32,7 +32,7 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 
-func is_able_to_shoot(delta) -> bool:
+func is_able_to_shoot(delta: float) -> bool:
 	if Input.is_action_pressed("shoot_laser"):
 		if timer >= .7:
 			can_shoot = true
@@ -43,8 +43,8 @@ func is_able_to_shoot(delta) -> bool:
 	return can_shoot
 
 
-func shoot():
-	var projectile = player_projectile.instantiate()
+func shoot() -> void:
+	var projectile: Area2D = player_projectile.instantiate()
 	projectile.spawn_position = Vector2(position.x, position.y - 5)
 	projectile.spawn_rotation = rotation
 	game.add_child.call_deferred(projectile)
