@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c3ysbgxcx3ge" path="res://Game/Entities/Player/Player.png" id="1_rprgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnj15"]
-size = Vector2(14, 6)
+size = Vector2(11.8709, 3.8)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -18,5 +18,5 @@ scale = Vector2(0.34375, 0.328125)
 texture = ExtResource("1_rprgt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
+position = Vector2(-1.68467e-07, 0.0999999)
 shape = SubResource("RectangleShape2D_mnj15")

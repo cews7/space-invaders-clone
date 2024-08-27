@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b7s6v11a0jaiq" path="res://Game/Entities/Projectile/Enemy/Squid/squid_laser.png" id="2_ilfx4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c8mvc"]
+radius = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5j741"]
 atlas = ExtResource("2_ilfx4")
@@ -45,10 +46,11 @@ shape = SubResource("CapsuleShape2D_c8mvc")
 sprite_frames = SubResource("SpriteFrames_x4gcr")
 animation = &"squid projectile"
 autoplay = "squid projectile"
-frame_progress = 0.122662
+frame = 1
+frame_progress = 0.190907
 
 [node name="Life Span" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 3.0
 autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

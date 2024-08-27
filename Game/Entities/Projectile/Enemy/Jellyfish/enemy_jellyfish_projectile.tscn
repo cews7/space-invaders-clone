@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cqqna047gi35i" path="res://Game/Entities/Projectile/Enemy/Jellyfish/jellyfish_laser.png" id="1_tqyfn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2iot"]
+size = Vector2(12, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amv4h"]
 atlas = ExtResource("1_tqyfn")
@@ -44,9 +45,10 @@ shape = SubResource("RectangleShape2D_h2iot")
 sprite_frames = SubResource("SpriteFrames_kilfl")
 animation = &"jellyfish projectile"
 autoplay = "jellyfish projectile"
-frame_progress = 0.778992
+frame_progress = 0.714542
 
 [node name="Life Span" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

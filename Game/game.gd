@@ -1,6 +1,6 @@
 extends Node
 
-@export var enemy_move_speed: float = 12
+@export var enemy_move_speed: float = 6
 @export var spacing_x: float = 40
 @export var spacing_y: float = 40
 @export var start_position_x: float = 30
@@ -51,7 +51,7 @@ func _process(delta) -> void:
 		
 	if should_move_down:
 		move_direction.x *= -1 # Reverse horizontal direction
-		enemy_move_speed += 3.5
+		enemy_move_speed += 1.5
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			enemy.position.y += move_down_amount
 
