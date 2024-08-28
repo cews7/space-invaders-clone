@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4olxiucls3r3"]
+[gd_scene load_steps=14 format=3 uid="uid://c4olxiucls3r3"]
 
 [ext_resource type="Script" path="res://Game/Entities/Enemy/Alien/enemy_alien.gd" id="1_68rde"]
 [ext_resource type="Texture2D" uid="uid://bw7dk3a274hgs" path="res://Game/Entities/Enemy/Alien/alien.png" id="2_ijku2"]
 [ext_resource type="Texture2D" uid="uid://do3ujlurqm2ly" path="res://Game/Entities/Enemy/death.png" id="3_uuvph"]
+[ext_resource type="AudioStream" uid="uid://bojojl73xqxdd" path="res://Game/assets/sound effects/391658__jeckkech__collision.wav" id="4_1ojt6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycxxp"]
 size = Vector2(24, 19)
@@ -81,12 +82,24 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.8),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"queue_free"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_i403j"]
@@ -110,6 +123,18 @@ tracks/1/path = NodePath("CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -150,6 +175,9 @@ collide_with_bodies = false
 libraries = {
 "": SubResource("AnimationLibrary_213ep")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1ojt6")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var game: Node2D = get_tree().get_root().get_node("Game")
 @onready var player_projectile: PackedScene = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
 
@@ -48,4 +49,5 @@ func shoot() -> void:
 	projectile.spawn_position = Vector2(position.x, position.y - 5)
 	projectile.spawn_rotation = rotation
 	game.add_child.call_deferred(projectile)
+	animation_player.play("Player Projectile Fired")
 
