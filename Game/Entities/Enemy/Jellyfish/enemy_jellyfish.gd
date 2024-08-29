@@ -1,5 +1,7 @@
 extends BaseEnemy
 
+signal enemy_died
+
 @onready var game: Node2D = get_tree().get_root().get_node("Game")
 @onready var jellyfish_projectile: PackedScene = load("res://Game/Entities/Projectile/Enemy/Jellyfish/enemy_jellyfish_projectile.tscn")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -17,3 +19,4 @@ func shoot() -> void:
 
 func _on_area_entered(_area: Area2D) -> void:
 	animation_player.play("Enemy Death")
+	enemy_died.emit()

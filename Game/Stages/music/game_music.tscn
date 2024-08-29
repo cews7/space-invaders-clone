@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://mivnrn73k5bi"]
+
+[ext_resource type="AudioStream" uid="uid://pckdgx6u8j1t" path="res://Game/assets/music/370801__romariogrande__space-chase.wav" id="1_vi56p"]
+
+[node name="Game Music" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_vi56p")
+autoplay = true

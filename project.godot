@@ -15,6 +15,10 @@ run/main_scene="res://Game/game.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameMusic="*res://Game/Stages/music/game_music.tscn"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=1
