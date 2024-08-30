@@ -19,4 +19,4 @@ func shoot() -> void:
 
 func _on_area_entered(_area: Area2D) -> void:
 	animation_player.play("Enemy Death")
-	enemy_died.emit()
+	enemy_died.emit("alien")

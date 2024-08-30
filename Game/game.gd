@@ -10,6 +10,11 @@ extends Node
 
 var enemy_count: int = 0
 
+const ALIEN: String = "alien"
+const JELLYFISH: String = "jellyfish"
+const SQUID: String = "squid"
+const MYSTERY_SHIP: String = "mystery ship"
+
 const EnemySquidScn: PackedScene = preload("res://Game/Entities/Enemy/Squid/enemy_squid.tscn")
 const EnemyAlienScn: PackedScene = preload("res://Game/Entities/Enemy/Alien/enemy_alien.tscn")
 const EnemyJellyfishScn: PackedScene = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
@@ -19,6 +24,7 @@ var mystery_ship: Area2D
 var mystery_ship_enemy_move_direction: Vector2 = Vector2(1, 0)
 var basic_enemy_move_direction: Vector2 = Vector2(1, 0)
 var move_down_amount: float = 40
+var score: int = 0
 var screen_bounds: Vector2 = Vector2(550, 828)
 
 var enemy_types : Array = [EnemySquidScn, EnemyAlienScn, EnemyJellyfishScn]
@@ -65,23 +71,25 @@ func create_enemies() -> void:
 	for row_index: int in range(enemy_layout.size()):
 		for col_index: int in range(enemy_layout[row_index].size()):
 			var enemy_type: int = enemy_layout[row_index][col_index]
-			var enemy_scene: Area2D = enemy_types[enemy_type].instantiate()
+			var enemy: Area2D = enemy_types[enemy_type].instantiate()
 
 			var position: Vector2 = start_spawn_vector + Vector2(col_index * spacing.x, row_index * spacing.y)
 			enemy_count += 1
-			enemy_scene.position = position
-			add_child(enemy_scene)
+			enemy.position = position
+			add_child(enemy)
 
-			# connect enemy died signal to track count of enemies
-			enemy_scene.enemy_died.connect(update_enemy_count)
+			# connect enemy died signal to track score and enemy count
+			enemy.enemy_died.connect(update_ui_info)
 			
 			# Assign enemy scene to 'enemies' group
-			enemy_scene.add_to_group("enemies")
+			enemy.add_to_group("enemies")
 
 
 func create_mystery_ship() -> void:
 	mystery_ship = EnemyMysteryShipScn.instantiate()
 	add_child(mystery_ship)
+
+	mystery_ship.died.connect(update_ui_info)
 
 	mystery_ship.position = mystery_ship_start_position
 
@@ -93,5 +101,21 @@ func mystery_ship_movement_pattern(delta: float) -> void:
 		mystery_ship_enemy_move_direction.x *= -1
 
 
-func update_enemy_count() -> void:
-	enemy_count -= 1
+func update_ui_info(enemy: String) -> void:
+	# omit mystery ship in tracking resetting scene
+	if enemy != MYSTERY_SHIP:
+		enemy_count -= 1
+
+	increase_score(enemy)
+
+
+func increase_score(enemy: String) -> void:
+	match enemy:
+		ALIEN:
+			score += 20
+		JELLYFISH:
+			score += 10
+		MYSTERY_SHIP:
+			score += mystery_ship.calc_score_value()
+		SQUID: 
+			score += 40
