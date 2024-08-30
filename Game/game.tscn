@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbvxiqfimrsnk"]
+[gd_scene load_steps=6 format=3 uid="uid://cbvxiqfimrsnk"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_ndhe6"]
 [ext_resource type="PackedScene" uid="uid://5l60gbcvy0cx" path="res://Game/Entities/Player/player.tscn" id="1_tq8dc"]
 [ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
 [ext_resource type="PackedScene" uid="uid://cpmvv0uskuw2r" path="res://Game/Stages/Destructible/Barrier/barrier.tscn" id="4_kxdg8"]
+[ext_resource type="FontFile" uid="uid://c87d4r806fbj8" path="res://Game/assets/fonts/PressStart2P-vaV7.ttf" id="5_ab3ey"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ndhe6")
@@ -65,3 +66,19 @@ position = Vector2(128, 725)
 
 [node name="Barrier14" parent="Barriers" instance=ExtResource("4_kxdg8")]
 position = Vector2(61, 724)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="RichTextLabel" parent="UserInterface"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 164.0
+offset_bottom = 52.0
+theme_override_fonts/normal_font = ExtResource("5_ab3ey")
+bbcode_enabled = true
+text = "Score:0"

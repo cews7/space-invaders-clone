@@ -10,6 +10,8 @@ extends Node
 
 var enemy_count: int = 0
 
+@onready var score_label: RichTextLabel = $"UserInterface/ScoreLabel"
+
 const ALIEN: String = "alien"
 const JELLYFISH: String = "jellyfish"
 const SQUID: String = "squid"
@@ -39,6 +41,8 @@ var enemy_layout : Array = [
 func _ready() -> void:
 	create_mystery_ship()
 	create_enemies()
+
+	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
 
 
 func _process(delta: float) -> void:
@@ -119,3 +123,5 @@ func increase_score(enemy: String) -> void:
 			score += mystery_ship.calc_score_value()
 		SQUID: 
 			score += 40
+
+	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
