@@ -51,3 +51,6 @@ func shoot() -> void:
 	game.add_child.call_deferred(projectile)
 	animation_player.play("Player Projectile Fired")
 
+
+func play_death_animation() -> void:
+	animation_player.play("Player Death")	

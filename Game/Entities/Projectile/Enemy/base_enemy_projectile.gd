@@ -22,7 +22,8 @@ func _on_life_span_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		queue_free()
-		body.queue_free()
+		body.play_death_animation()
+
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "BarrierArea":
