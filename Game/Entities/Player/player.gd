@@ -5,9 +5,9 @@ extends CharacterBody2D
 @onready var player_projectile: PackedScene = load("res://Game/Entities/Projectile/Player/player_projectile.tscn")
 
 const SPEED: float = 150.0
+var can_shoot: bool
 var screen_size: Vector2
-var timer : float
-var can_shoot : bool
+var timer: float
 
 func _ready() -> void:
 	timer = 0
@@ -52,5 +52,7 @@ func shoot() -> void:
 	animation_player.play("Player Projectile Fired")
 
 
-func play_death_animation() -> void:
-	animation_player.play("Player Death")	
+func handle_death() -> void:
+	animation_player.play("Player Death")
+		
+

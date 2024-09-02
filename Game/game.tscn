@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbvxiqfimrsnk"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_ndhe6"]
-[ext_resource type="PackedScene" uid="uid://5l60gbcvy0cx" path="res://Game/Entities/Player/player.tscn" id="1_tq8dc"]
 [ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
 [ext_resource type="PackedScene" uid="uid://cpmvv0uskuw2r" path="res://Game/Stages/Destructible/Barrier/barrier.tscn" id="4_kxdg8"]
 [ext_resource type="FontFile" uid="uid://c87d4r806fbj8" path="res://Game/assets/fonts/PressStart2P-vaV7.ttf" id="5_ab3ey"]
+[ext_resource type="PackedScene" uid="uid://c8ie1ewt0jj5" path="res://Game/Utils/player_spawner.tscn" id="6_qp68m"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ndhe6")
@@ -12,9 +12,6 @@ script = ExtResource("1_ndhe6")
 [node name="Camera2D" type="Camera2D" parent="."]
 z_index = 1
 position = Vector2(275, 414)
-
-[node name="Player" parent="." instance=ExtResource("1_tq8dc")]
-position = Vector2(354, 778)
 
 [node name="Background" parent="." instance=ExtResource("2_h7j2e")]
 position = Vector2(10, 6)
@@ -82,3 +79,17 @@ offset_bottom = 52.0
 theme_override_fonts/normal_font = ExtResource("5_ab3ey")
 bbcode_enabled = true
 text = "Score:0"
+
+[node name="PlayerLives" type="RichTextLabel" parent="UserInterface"]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 8.0
+offset_right = 540.0
+offset_bottom = 45.0
+theme_override_fonts/normal_font = ExtResource("5_ab3ey")
+bbcode_enabled = true
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("6_qp68m")]
+position = Vector2(274, 777)
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

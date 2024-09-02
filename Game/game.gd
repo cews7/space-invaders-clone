@@ -11,6 +11,7 @@ extends Node
 var enemy_count: int = 0
 
 @onready var score_label: RichTextLabel = $"UserInterface/ScoreLabel"
+@onready var player_lives: RichTextLabel = $"UserInterface/PlayerLives"
 
 const ALIEN: String = "alien"
 const JELLYFISH: String = "jellyfish"
@@ -22,9 +23,10 @@ const EnemyAlienScn: PackedScene = preload("res://Game/Entities/Enemy/Alien/enem
 const EnemyJellyfishScn: PackedScene = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
 const EnemyMysteryShipScn: PackedScene = preload("res://Game/Entities/Enemy/Mystery Ship/enemy_mystery_ship.tscn")
 
+var basic_enemy_move_direction: Vector2 = Vector2(1, 0)
+var player_lives_remaining: int = 3
 var mystery_ship: Area2D
 var mystery_ship_enemy_move_direction: Vector2 = Vector2(1, 0)
-var basic_enemy_move_direction: Vector2 = Vector2(1, 0)
 var move_down_amount: float = 40
 var score: int = 0
 var screen_bounds: Vector2 = Vector2(550, 828)
@@ -42,10 +44,11 @@ func _ready() -> void:
 	create_mystery_ship()
 	create_enemies()
 
+	player_lives.text = "Lives Remaining: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
 	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
 
-
 func _process(delta: float) -> void:
+	player_lives.text = "Lives Left: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
 	var should_move_down: bool = false
 	
 	# Check to see if mystery ship has been freed from scene
@@ -83,7 +86,7 @@ func create_enemies() -> void:
 			add_child(enemy)
 
 			# connect enemy died signal to track score and enemy count
-			enemy.enemy_died.connect(update_ui_info)
+			enemy.enemy_died.connect(increase_score)
 			
 			# Assign enemy scene to 'enemies' group
 			enemy.add_to_group("enemies")
@@ -93,7 +96,7 @@ func create_mystery_ship() -> void:
 	mystery_ship = EnemyMysteryShipScn.instantiate()
 	add_child(mystery_ship)
 
-	mystery_ship.died.connect(update_ui_info)
+	mystery_ship.died.connect(increase_score)
 
 	mystery_ship.position = mystery_ship_start_position
 
@@ -103,14 +106,6 @@ func mystery_ship_movement_pattern(delta: float) -> void:
 
 	if mystery_ship.position.x <= -489 or mystery_ship.position.x >= 900:
 		mystery_ship_enemy_move_direction.x *= -1
-
-
-func update_ui_info(enemy: String) -> void:
-	# omit mystery ship in tracking resetting scene
-	if enemy != MYSTERY_SHIP:
-		enemy_count -= 1
-
-	increase_score(enemy)
 
 
 func increase_score(enemy: String) -> void:
@@ -125,3 +120,9 @@ func increase_score(enemy: String) -> void:
 			score += 40
 
 	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
+
+
+# track when player spawns
+func _on_child_entered_tree(node: Node) -> void:
+	if node.name == "Player":
+		player_lives_remaining -= 1
