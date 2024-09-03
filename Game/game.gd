@@ -10,8 +10,9 @@ extends Node
 
 var enemy_count: int = 0
 
+@onready var high_score_label: RichTextLabel = $"UserInterface/HighScoreLabel"
+@onready var player_lives_label: RichTextLabel = $"UserInterface/PlayerLivesLabel"
 @onready var score_label: RichTextLabel = $"UserInterface/ScoreLabel"
-@onready var player_lives: RichTextLabel = $"UserInterface/PlayerLives"
 
 const ALIEN: String = "alien"
 const JELLYFISH: String = "jellyfish"
@@ -22,6 +23,8 @@ const EnemySquidScn: PackedScene = preload("res://Game/Entities/Enemy/Squid/enem
 const EnemyAlienScn: PackedScene = preload("res://Game/Entities/Enemy/Alien/enemy_alien.tscn")
 const EnemyJellyfishScn: PackedScene = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
 const EnemyMysteryShipScn: PackedScene = preload("res://Game/Entities/Enemy/Mystery Ship/enemy_mystery_ship.tscn")
+const GameOverScn: PackedScene = preload("res://Game/UI/game_over.tscn")
+
 
 var basic_enemy_move_direction: Vector2 = Vector2(1, 0)
 var player_lives_remaining: int = 3
@@ -43,12 +46,12 @@ var enemy_layout : Array = [
 func _ready() -> void:
 	create_mystery_ship()
 	create_enemies()
+	load_game_text()
 
-	player_lives.text = "Lives Remaining: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
-	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
 
 func _process(delta: float) -> void:
-	player_lives.text = "Lives Left: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
+	load_game_text("player lives")
+
 	var should_move_down: bool = false
 	
 	# Check to see if mystery ship has been freed from scene
@@ -67,9 +70,8 @@ func _process(delta: float) -> void:
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			enemy.position.y += move_down_amount
 
-	if enemy_count == 0:
-		get_tree().reload_current_scene()
-
+	if player_lives_remaining == 0:
+		show_game_over()
 
 func create_enemies() -> void:
 	var start_spawn_vector: Vector2 = Vector2(start_position_x, start_position_y)
@@ -86,7 +88,7 @@ func create_enemies() -> void:
 			add_child(enemy)
 
 			# connect enemy died signal to track score and enemy count
-			enemy.enemy_died.connect(increase_score)
+			enemy.enemy_died.connect(handle_enemy_death)
 			
 			# Assign enemy scene to 'enemies' group
 			enemy.add_to_group("enemies")
@@ -96,9 +98,18 @@ func create_mystery_ship() -> void:
 	mystery_ship = EnemyMysteryShipScn.instantiate()
 	add_child(mystery_ship)
 
-	mystery_ship.died.connect(increase_score)
+	mystery_ship.died.connect(handle_enemy_death)
 
 	mystery_ship.position = mystery_ship_start_position
+
+
+func load_game_text(type: String = "all") -> void:
+	if type == "all":
+		high_score_label.text = "High Score:" + "[color=#62E707]" + str(Global.save_data.high_score) + "[/color]"
+		score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
+		player_lives_label.text = "Lives: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
+	elif type == "player lives":
+		player_lives_label.text = "Lives: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
 
 
 func mystery_ship_movement_pattern(delta: float) -> void:
@@ -108,21 +119,41 @@ func mystery_ship_movement_pattern(delta: float) -> void:
 		mystery_ship_enemy_move_direction.x *= -1
 
 
-func increase_score(enemy: String) -> void:
+func handle_enemy_death(enemy: String) -> void:
 	match enemy:
 		ALIEN:
+			enemy_count -= 1
 			score += 20
 		JELLYFISH:
+			enemy_count -= 1
 			score += 10
 		MYSTERY_SHIP:
 			score += mystery_ship.calc_score_value()
 		SQUID: 
+			enemy_count -= 1
 			score += 40
+	if score > Global.save_data.high_score:
+		Global.save_data.high_score = score
+		Global.save_data.save()
+		high_score_label.text = "[color=#62E707]" + "NEW HIGH SCORE!" + "[/color]"
 
 	score_label.text = "Score:" + "[color=#62E707]" + str(score) + "[/color]"
 
+	# redraw enemies in scene if all are defeated
+	if enemy_count == 0:
+		# increase difficulty each new round
+		enemy_move_speed += 2
+		# ensure old enemy doesn't spawn on top of new enemy
+		await get_tree().create_timer(2).timeout
+		create_enemies()
 
-# track when player spawns
-func _on_child_entered_tree(node: Node) -> void:
-	if node.name == "Player":
-		player_lives_remaining -= 1
+
+
+func show_game_over() -> void:
+	var game_over: Control = GameOverScn.instantiate()
+	add_child(game_over)
+
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.queue_free()
+
+		

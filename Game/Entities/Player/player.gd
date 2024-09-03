@@ -54,5 +54,6 @@ func shoot() -> void:
 
 func handle_death() -> void:
 	animation_player.play("Player Death")
-		
+	if get_parent().player_lives_remaining > 0:
+		get_parent().player_lives_remaining -= 1
 

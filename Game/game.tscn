@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Game/game.gd" id="1_ndhe6"]
 [ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
 [ext_resource type="PackedScene" uid="uid://cpmvv0uskuw2r" path="res://Game/Stages/Destructible/Barrier/barrier.tscn" id="4_kxdg8"]
-[ext_resource type="FontFile" uid="uid://c87d4r806fbj8" path="res://Game/assets/fonts/PressStart2P-vaV7.ttf" id="5_ab3ey"]
+[ext_resource type="PackedScene" uid="uid://e8xaact0asnv" path="res://Game/UI/user_interface.tscn" id="4_s26e4"]
 [ext_resource type="PackedScene" uid="uid://c8ie1ewt0jj5" path="res://Game/Utils/player_spawner.tscn" id="6_qp68m"]
 
 [node name="Game" type="Node2D"]
@@ -64,32 +64,7 @@ position = Vector2(128, 725)
 [node name="Barrier14" parent="Barriers" instance=ExtResource("4_kxdg8")]
 position = Vector2(61, 724)
 
-[node name="UserInterface" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ScoreLabel" type="RichTextLabel" parent="UserInterface"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 12.0
-offset_right = 164.0
-offset_bottom = 52.0
-theme_override_fonts/normal_font = ExtResource("5_ab3ey")
-bbcode_enabled = true
-text = "Score:0"
-
-[node name="PlayerLives" type="RichTextLabel" parent="UserInterface"]
-layout_mode = 0
-offset_left = 316.0
-offset_top = 8.0
-offset_right = 540.0
-offset_bottom = 45.0
-theme_override_fonts/normal_font = ExtResource("5_ab3ey")
-bbcode_enabled = true
+[node name="UserInterface" parent="." instance=ExtResource("4_s26e4")]
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("6_qp68m")]
 position = Vector2(274, 777)
-
-[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
