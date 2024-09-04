@@ -17,6 +17,9 @@ func shoot() -> void:
 	game.add_child.call_deferred(projectile)
 
 
-func _on_area_entered(_area: Area2D) -> void:
-	animation_player.play("Enemy Death")
-	enemy_died.emit("jellyfish")
+func _on_area_entered(area: Area2D) -> void:
+	if area.name == "GameBoundary":
+		get_parent().show_game_over()
+	else:
+		animation_player.play("Enemy Death")
+		enemy_died.emit("jellyfish")

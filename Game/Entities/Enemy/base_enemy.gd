@@ -30,6 +30,10 @@ func reload_attempt_successful() -> bool:
 	return false
 
 
+func _on_body_entered(body: Node) -> void:
+	if body.name == "Player":
+		get_parent().show_game_over()
+
+
 func has_line_of_sight() -> bool:
 	return not $LOSCheck.is_colliding()
-

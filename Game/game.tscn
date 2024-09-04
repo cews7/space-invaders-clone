@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbvxiqfimrsnk"]
+[gd_scene load_steps=7 format=3 uid="uid://cbvxiqfimrsnk"]
 
 [ext_resource type="Script" path="res://Game/game.gd" id="1_ndhe6"]
 [ext_resource type="PackedScene" uid="uid://djma5am3k5r2y" path="res://Game/Stages/Background/background.tscn" id="2_h7j2e"]
 [ext_resource type="PackedScene" uid="uid://cpmvv0uskuw2r" path="res://Game/Stages/Destructible/Barrier/barrier.tscn" id="4_kxdg8"]
 [ext_resource type="PackedScene" uid="uid://e8xaact0asnv" path="res://Game/UI/user_interface.tscn" id="4_s26e4"]
 [ext_resource type="PackedScene" uid="uid://c8ie1ewt0jj5" path="res://Game/Utils/player_spawner.tscn" id="6_qp68m"]
+[ext_resource type="PackedScene" uid="uid://bnihjvpnnqx7q" path="res://Game/Stages/Game Boundary/game_boundary.tscn" id="6_r7d24"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ndhe6")
@@ -68,3 +69,7 @@ position = Vector2(61, 724)
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("6_qp68m")]
 position = Vector2(274, 777)
+
+[node name="GameBoundary" parent="." instance=ExtResource("6_r7d24")]
+collision_layer = 8
+collision_mask = 0

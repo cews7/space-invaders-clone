@@ -1,7 +1,7 @@
 extends Node
 
 @export var enemy_mystery_ship_move_speed: float = 75
-@export var enemy_move_speed: float = 6
+@export var enemy_move_speed: float = 8
 @export var mystery_ship_start_position: Vector2 = Vector2(-489, 100)
 @export var spacing_x: float = 40
 @export var spacing_y: float = 40
