@@ -24,15 +24,17 @@ const EnemyAlienScn: PackedScene = preload("res://Game/Entities/Enemy/Alien/enem
 const EnemyJellyfishScn: PackedScene = preload("res://Game/Entities/Enemy/Jellyfish/enemy_jellyfish.tscn")
 const EnemyMysteryShipScn: PackedScene = preload("res://Game/Entities/Enemy/Mystery Ship/enemy_mystery_ship.tscn")
 const GameOverScn: PackedScene = preload("res://Game/UI/game_over.tscn")
-
+const TitleScn: PackedScene = preload("res://Game/UI/title.tscn")
 
 var basic_enemy_move_direction: Vector2 = Vector2(1, 0)
+var game_title: Node2D
 var player_lives_remaining: int = 3
 var mystery_ship: Area2D
 var mystery_ship_enemy_move_direction: Vector2 = Vector2(1, 0)
 var move_down_amount: float = 40
 var score: int = 0
 var screen_bounds: Vector2 = Vector2(550, 828)
+var show_player_lives: bool
 
 var enemy_types : Array = [EnemySquidScn, EnemyAlienScn, EnemyJellyfishScn]
 var enemy_layout : Array = [
@@ -44,13 +46,12 @@ var enemy_layout : Array = [
 ]
 
 func _ready() -> void:
-	create_mystery_ship()
-	create_enemies()
-	load_game_text()
+	new_game() if Global.show_game_launcher else restart_game()
 
 
 func _process(delta: float) -> void:
-	load_game_text("player lives")
+	if show_player_lives:
+		load_game_text("player lives")
 
 	var should_move_down: bool = false
 	
@@ -71,7 +72,14 @@ func _process(delta: float) -> void:
 			enemy.position.y += move_down_amount
 
 	if player_lives_remaining == 0:
+		Global.show_game_launcher = false
 		show_game_over()
+
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_pressed("pause"):
+		get_tree().paused = true
+
 
 func create_enemies() -> void:
 	var start_spawn_vector: Vector2 = Vector2(start_position_x, start_position_y)
@@ -103,6 +111,13 @@ func create_mystery_ship() -> void:
 	mystery_ship.position = mystery_ship_start_position
 
 
+func load_game() -> void:
+	create_mystery_ship()
+	create_enemies()
+	load_game_text()
+	show_player_lives = true
+
+
 func load_game_text(type: String = "all") -> void:
 	if type == "all":
 		high_score_label.text = "High Score:" + "[color=#62E707]" + str(Global.save_data.high_score) + "[/color]"
@@ -110,6 +125,11 @@ func load_game_text(type: String = "all") -> void:
 		player_lives_label.text = "Lives: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
 	elif type == "player lives":
 		player_lives_label.text = "Lives: " + "[color=#62e707]" + str(player_lives_remaining) + "[/color]"
+
+func new_game() -> void:
+	game_title = TitleScn.instantiate()
+	add_child(game_title)
+	game_title.new_game.connect(start_game)
 
 
 func mystery_ship_movement_pattern(delta: float) -> void:
@@ -143,10 +163,9 @@ func handle_enemy_death(enemy: String) -> void:
 	if enemy_count == 0:
 		# increase difficulty each new round
 		enemy_move_speed += 2
-		# ensure old enemy doesn't spawn on top of new enemy
+		# ensure new enemy doesn't spawn on top of old enemy
 		await get_tree().create_timer(2).timeout
 		create_enemies()
-
 
 
 func show_game_over() -> void:
@@ -156,4 +175,11 @@ func show_game_over() -> void:
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.queue_free()
 
-		
+
+func restart_game() -> void:
+	load_game()
+
+
+func start_game() -> void:
+	load_game()
+	game_title.queue_free()

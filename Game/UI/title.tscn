@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch322kcl8vkup"]
+
+[ext_resource type="Script" path="res://Game/UI/start_menu.gd" id="1_ed1i5"]
+[ext_resource type="FontFile" uid="uid://bhym2sujwa8ns" path="res://Game/assets/fonts/Poxast-R9Jjl.ttf" id="1_r0had"]
+[ext_resource type="Script" path="res://Game/UI/title.gd" id="1_wu4ah"]
+[ext_resource type="FontFile" uid="uid://c87d4r806fbj8" path="res://Game/assets/fonts/PressStart2P-vaV7.ttf" id="2_wvd8f"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_wu4ah")
+
+[node name="StartMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 552.0
+offset_bottom = 609.0
+script = ExtResource("1_ed1i5")
+
+[node name="Play" type="Button" parent="StartMenu"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 257.0
+offset_right = 227.0
+offset_bottom = 288.0
+scale = Vector2(2.6199, 2.96433)
+theme_override_fonts/font = ExtResource("2_wvd8f")
+text = "PLAY"
+
+[node name="Quit" type="Button" parent="StartMenu"]
+offset_left = 157.0
+offset_top = 369.0
+offset_right = 229.0
+offset_bottom = 400.0
+scale = Vector2(2.68742, 3.04628)
+theme_override_fonts/font = ExtResource("2_wvd8f")
+text = "QUIT"
+
+[node name="GameTitle" type="RichTextLabel" parent="StartMenu"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 52.0
+offset_right = 263.0
+offset_bottom = 101.0
+rotation = 0.00269154
+scale = Vector2(2.02616, 4.5338)
+theme_override_fonts/normal_font = ExtResource("1_r0had")
+text = "SPACE INVADERS"
+
+[connection signal="pressed" from="StartMenu/Play" to="StartMenu" method="_on_play_pressed"]
+[connection signal="pressed" from="StartMenu/Quit" to="StartMenu" method="_on_quit_pressed"]
