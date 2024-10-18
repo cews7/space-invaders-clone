@@ -1,5 +1,5 @@
-extends Area2D
-class_name BaseEnemy
+class_name BaseEnemy extends Area2D
+
 
 var reload_time : float
 var is_reload_time_complete : bool

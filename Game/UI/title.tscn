@@ -52,6 +52,7 @@ theme_override_fonts/font = ExtResource("2_wvd8f")
 text = "PLAY"
 
 [node name="Quit" type="Button" parent="StartMenu"]
+layout_mode = 0
 offset_left = 267.0
 offset_top = 516.0
 offset_right = 339.0
